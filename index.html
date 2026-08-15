@@ -1,185 +1,206 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Cartoon Malar AI Video</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cartoon Malar AI</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#080b12;
-  color:white;
+ margin:0;
+ background:#070910;
+ color:#fff;
+ font-family:Arial,sans-serif;
 }
 
 .app{
-  max-width:500px;
-  margin:auto;
-  min-height:100vh;
-  padding:20px;
+ width:100%;
+ max-width:520px;
+ margin:auto;
+ min-height:100vh;
+ padding:18px;
 }
 
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:20px;
 }
 
 .logo{
-  font-size:23px;
-  font-weight:bold;
+ font-size:23px;
+ font-weight:800;
 }
 
 .badge{
-  background:#713cff;
-  padding:7px 12px;
-  border-radius:20px;
-  font-size:11px;
+ background:linear-gradient(135deg,#7047ff,#c247ff);
+ padding:7px 11px;
+ border-radius:20px;
+ font-size:11px;
 }
 
 .card{
-  background:#111722;
-  border:1px solid #293142;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:18px;
+ background:#111621;
+ border:1px solid #272e3d;
+ border-radius:20px;
+ padding:18px;
+ margin-bottom:16px;
 }
 
-h1{
-  font-size:25px;
-  margin:5px 0 10px;
+.hero h1{
+ margin:0 0 8px;
+ font-size:28px;
 }
 
-p{
-  color:#9da7b8;
-  line-height:1.5;
+.muted{
+ color:#9ba5b6;
+ line-height:1.5;
 }
 
-label{
-  display:block;
-  margin:15px 0 8px;
-  font-weight:bold;
+.tabs{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin-top:18px;
+}
+
+.tab{
+ padding:14px;
+ border-radius:14px;
+ border:1px solid #303849;
+ background:#0c111b;
+ color:#fff;
+ font-weight:bold;
+}
+
+.tab.active{
+ background:linear-gradient(135deg,#7047ff,#bd43ff);
+ border:0;
 }
 
 .upload{
-  border:2px dashed #3b465b;
-  border-radius:16px;
-  padding:28px 15px;
-  text-align:center;
-  cursor:pointer;
+ display:block;
+ border:2px dashed #3b465a;
+ border-radius:18px;
+ padding:30px 12px;
+ text-align:center;
+ cursor:pointer;
 }
 
 .upload-icon{
-  font-size:42px;
+ font-size:42px;
+ margin-bottom:8px;
 }
 
 input[type=file]{
-  display:none;
+ display:none;
 }
 
 .preview{
-  display:none;
-  text-align:center;
-  margin-top:15px;
+ display:none;
+ margin-top:15px;
+ text-align:center;
 }
 
-.preview img{
-  width:170px;
-  max-height:230px;
-  object-fit:cover;
-  border-radius:15px;
+.preview img,
+.preview video{
+ width:100%;
+ max-height:330px;
+ object-fit:contain;
+ border-radius:16px;
+ background:#000;
 }
 
-select,textarea{
-  width:100%;
-  background:#0b1019;
-  border:1px solid #30394a;
-  color:white;
-  padding:13px;
-  border-radius:12px;
-  font-size:15px;
+label.title{
+ display:block;
+ margin:15px 0 8px;
+ font-weight:bold;
+}
+
+select,
+textarea{
+ width:100%;
+ padding:14px;
+ border-radius:13px;
+ border:1px solid #303849;
+ background:#090e17;
+ color:#fff;
+ font-size:15px;
 }
 
 textarea{
-  min-height:80px;
-  resize:none;
+ min-height:85px;
+ resize:none;
 }
 
 button{
-  width:100%;
-  border:0;
-  padding:15px;
-  border-radius:13px;
-  background:linear-gradient(135deg,#7547ff,#b344ff);
-  color:white;
-  font-size:17px;
-  font-weight:bold;
-  margin-top:18px;
+ width:100%;
+ margin-top:15px;
+ padding:15px;
+ border:0;
+ border-radius:14px;
+ color:#fff;
+ background:linear-gradient(135deg,#7047ff,#bd43ff);
+ font-size:16px;
+ font-weight:800;
 }
 
-button:active{
-  transform:scale(.98);
+button.secondary{
+ background:#202838;
 }
 
-.progress{
-  display:none;
-  margin-top:15px;
+button:disabled{
+ opacity:.5;
 }
 
-.progress-bar{
-  width:100%;
-  height:9px;
-  background:#202938;
-  border-radius:10px;
-  overflow:hidden;
+.result{
+ display:none;
 }
 
-.progress-fill{
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg,#7547ff,#c044ff);
-}
-
-.video-box{
-  display:none;
-  text-align:center;
-}
-
-video{
-  width:100%;
-  max-height:520px;
-  border-radius:18px;
-  background:#000;
+.result img,
+.result video{
+ width:100%;
+ max-height:520px;
+ border-radius:18px;
+ background:#000;
+ object-fit:contain;
 }
 
 .actions{
-  display:flex;
-  gap:10px;
-}
-
-.actions button{
-  flex:1;
-}
-
-.secondary{
-  background:#202938;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
 }
 
 .status{
-  text-align:center;
-  color:#aeb8ca;
-  margin-top:10px;
+ display:none;
+ margin-top:15px;
+ text-align:center;
+ color:#b9c2d2;
+}
+
+.loader{
+ width:34px;
+ height:34px;
+ border:4px solid #303849;
+ border-top-color:#9a5cff;
+ border-radius:50%;
+ animation:spin .8s linear infinite;
+ margin:10px auto;
+}
+
+@keyframes spin{
+ to{transform:rotate(360deg)}
 }
 
 footer{
-  text-align:center;
-  color:#687386;
-  font-size:12px;
-  padding:20px;
+ text-align:center;
+ color:#687386;
+ font-size:12px;
+ padding:18px;
 }
 </style>
 </head>
@@ -189,407 +210,397 @@ footer{
 <div class="app">
 
 <header>
-  <div class="logo">🌸 Cartoon Malar AI</div>
-  <div class="badge">AI VIDEO</div>
+ <div class="logo">🌸 Cartoon Malar AI</div>
+ <div class="badge">AI CREATOR</div>
 </header>
+
+<div class="card hero">
+
+ <h1>Photo & Video → Cartoon ✨</h1>
+
+ <div class="muted">
+ Upload one photo or one normal video and create your cartoon version.
+ </div>
+
+ <div class="tabs">
+  <button class="tab active" id="photoTab" onclick="setMode('photo')">
+   📸 Photo
+  </button>
+
+  <button class="tab" id="videoTab" onclick="setMode('video')">
+   🎥 Video
+  </button>
+ </div>
+
+</div>
 
 <div class="card">
 
-<h1>📸 Photo → Cartoon Video</h1>
+ <label class="title">Upload</label>
 
-<p>
-ஒரு புகைப்படத்தை தேர்வு செய்து அழகான 9:16 Cartoon வீடியோ உருவாக்குங்கள்.
-</p>
+ <label class="upload" for="media">
 
-<label>📸 உங்கள் புகைப்படம்</label>
+  <div class="upload-icon" id="uploadIcon">🖼️</div>
 
-<label class="upload" for="photo">
-  <div class="upload-icon">🖼️</div>
-  <div>புகைப்படத்தை தேர்வு செய்யுங்கள்</div>
-  <p>JPG / PNG</p>
-</label>
+  <strong id="uploadTitle">
+   Select one photo
+  </strong>
 
-<input id="photo" type="file" accept="image/*">
+  <div class="muted" id="uploadHelp">
+   JPG, PNG or WEBP
+  </div>
 
-<div class="preview" id="preview">
-  <img id="previewImg">
-</div>
+ </label>
 
-<label>🎨 Cartoon Style</label>
+ <input id="media" type="file" accept="image/*">
 
-<select id="style">
+ <div class="preview" id="preview">
+
+  <img id="imagePreview">
+
+  <video
+   id="videoPreview"
+   controls
+   playsinline>
+  </video>
+
+ </div>
+
+ <label class="title">🎨 Cartoon Style</label>
+
+ <select id="style">
+
+  <option>Cinematic 3D</option>
   <option>Soft 3D Cartoon</option>
-  <option>Cinematic Cartoon</option>
-  <option>Anime Cartoon</option>
-  <option>Realistic Cartoon</option>
-  <option>Dreamy Cartoon</option>
-</select>
+  <option>Anime</option>
+  <option>Cute Cartoon</option>
+  <option>Comic</option>
 
-<label>✍️ Scene</label>
+ </select>
 
-<textarea id="prompt"
-placeholder="உதாரணம்: கடற்கரையில் sunset, அழகான background..."></textarea>
+ <label class="title">✍️ Scene / Prompt</label>
 
-<button onclick="createVideo()">
-✨ Cartoon Video உருவாக்கு
-</button>
+ <textarea
+ id="prompt"
+ placeholder="Example: beautiful sunset beach, cinematic lighting..."></textarea>
 
-<div class="progress" id="progress">
+ <button id="generateBtn" onclick="generate()">
+  ✨ Create Cartoon
+ </button>
 
-<p id="progressText">வீடியோ தயாராகிறது...</p>
+ <div class="status" id="status">
 
-<div class="progress-bar">
-<div class="progress-fill" id="progressFill"></div>
-</div>
+  <div class="loader"></div>
 
-</div>
+  <div id="statusText">
+   Preparing...
+  </div>
 
-</div>
-
-<div class="card video-box" id="videoBox">
-
-<h2>🎬 உங்கள் Cartoon Video</h2>
-
-<video id="resultVideo" controls playsinline></video>
-
-<div class="actions">
-
-<button class="secondary" onclick="downloadVideo()">
-⬇️ Save
-</button>
-
-<button class="secondary" onclick="shareVideo()">
-📤 Share
-</button>
+ </div>
 
 </div>
+
+<div class="card result" id="result">
+
+ <h2>✨ Result</h2>
+
+ <img id="resultImage">
+
+ <video
+  id="resultVideo"
+  controls
+  playsinline>
+ </video>
+
+ <div class="actions">
+
+  <button
+   class="secondary"
+   onclick="downloadResult()">
+   ⬇️ Download
+  </button>
+
+  <button
+   class="secondary"
+   onclick="shareResult()">
+   📤 Share
+  </button>
+
+ </div>
 
 </div>
 
 <footer>
-Cartoon Malar AI • AI Video Creator
+ Cartoon Malar AI • Photo & Video Cartoon Creator
 </footer>
 
 </div>
 
 <script>
 
-const photo = document.getElementById("photo");
-const preview = document.getElementById("preview");
-const previewImg = document.getElementById("previewImg");
+let mode="photo";
+let selectedFile=null;
+let resultUrl=null;
 
-let selectedImage = null;
-let videoBlob = null;
+const media=document.getElementById("media");
+const preview=document.getElementById("preview");
+const imagePreview=document.getElementById("imagePreview");
+const videoPreview=document.getElementById("videoPreview");
 
-photo.addEventListener("change",function(){
+function setMode(newMode){
 
-  const file=this.files[0];
+ mode=newMode;
 
-  if(!file)return;
+ document.getElementById("photoTab")
+  .classList.toggle("active",mode==="photo");
 
-  selectedImage=new Image();
+ document.getElementById("videoTab")
+  .classList.toggle("active",mode==="video");
 
-  selectedImage.onload=function(){
+ selectedFile=null;
+ media.value="";
+ preview.style.display="none";
 
-    previewImg.src=URL.createObjectURL(file);
-    preview.style.display="block";
+ if(mode==="photo"){
 
-  };
+  media.accept="image/*";
 
-  selectedImage.src=URL.createObjectURL(file);
+  document.getElementById("uploadIcon").textContent="🖼️";
+
+  document.getElementById("uploadTitle").textContent=
+   "Select one photo";
+
+  document.getElementById("uploadHelp").textContent=
+   "JPG, PNG or WEBP";
+
+ }else{
+
+  media.accept="video/*";
+
+  document.getElementById("uploadIcon").textContent="🎥";
+
+  document.getElementById("uploadTitle").textContent=
+   "Select one normal video";
+
+  document.getElementById("uploadHelp").textContent=
+   "MP4, MOV or WEBM";
+
+ }
+
+}
+
+media.addEventListener("change",function(){
+
+ const file=this.files[0];
+
+ if(!file)return;
+
+ selectedFile=file;
+
+ const url=URL.createObjectURL(file);
+
+ preview.style.display="block";
+
+ if(mode==="photo"){
+
+  imagePreview.src=url;
+
+  imagePreview.style.display="block";
+
+  videoPreview.style.display="none";
+
+ }else{
+
+  videoPreview.src=url;
+
+  videoPreview.style.display="block";
+
+  imagePreview.style.display="none";
+
+ }
 
 });
 
+async function generate(){
 
-async function createVideo(){
+ if(!selectedFile){
 
-  if(!photo.files[0]){
-
-    alert("முதலில் ஒரு புகைப்படத்தை தேர்வு செய்யுங்கள்.");
-
-    return;
-  }
-
-  if(!selectedImage){
-
-    alert("புகைப்படம் தயாராகவில்லை.");
-
-    return;
-  }
-
-  const progress=document.getElementById("progress");
-  const fill=document.getElementById("progressFill");
-  const progressText=document.getElementById("progressText");
-
-  progress.style.display="block";
-
-  progressText.innerText="🎨 Cartoon video தயாராகிறது...";
-
-  fill.style.width="10%";
-
-  const canvas=document.createElement("canvas");
-
-  canvas.width=720;
-  canvas.height=1280;
-
-  const ctx=canvas.getContext("2d");
-
-  const stream=canvas.captureStream(30);
-
-  let recorder;
-
-  const options={
-    mimeType:"video/webm;codecs=vp9"
-  };
-
-  if(MediaRecorder.isTypeSupported(options.mimeType)){
-    recorder=new MediaRecorder(stream,options);
-  }else{
-    recorder=new MediaRecorder(stream);
-  }
-
-  const chunks=[];
-
-  recorder.ondataavailable=function(e){
-
-    if(e.data.size>0){
-      chunks.push(e.data);
-    }
-
-  };
-
-  recorder.onstop=function(){
-
-    videoBlob=new Blob(chunks,{type:"video/webm"});
-
-    const url=URL.createObjectURL(videoBlob);
-
-    const video=document.getElementById("resultVideo");
-
-    video.src=url;
-
-    document.getElementById("videoBox").style.display="block";
-
-    progressText.innerText="✅ Cartoon Video Ready!";
-
-    fill.style.width="100%";
-
-    document.getElementById("videoBox")
-      .scrollIntoView({behavior:"smooth"});
-
-  };
-
-  recorder.start();
-
-  const duration=6000;
-  const start=performance.now();
-
-  function draw(now){
-
-    const elapsed=now-start;
-
-    const progressValue=Math.min(elapsed/duration,1);
-
-    fill.style.width=(10+progressValue*85)+"%";
-
-    ctx.fillStyle="#080b12";
-
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    const imageRatio=
-      selectedImage.width/selectedImage.height;
-
-    const canvasRatio=
-      canvas.width/canvas.height;
-
-    let drawWidth;
-    let drawHeight;
-
-    if(imageRatio>canvasRatio){
-
-      drawHeight=canvas.height;
-
-      drawWidth=drawHeight*imageRatio;
-
-    }else{
-
-      drawWidth=canvas.width;
-
-      drawHeight=drawWidth/imageRatio;
-
-    }
-
-    const zoom=1+progressValue*0.12;
-
-    drawWidth*=zoom;
-    drawHeight*=zoom;
-
-    const x=(canvas.width-drawWidth)/2;
-
-    const y=(canvas.height-drawHeight)/2;
-
-    ctx.save();
-
-    ctx.filter=
-      "contrast(1.08) saturate(1.18) brightness(1.05)";
-
-    ctx.drawImage(
-      selectedImage,
-      x,
-      y,
-      drawWidth,
-      drawHeight
-    );
-
-    ctx.restore();
-
-    // Cartoon-style overlay
-
-    const gradient=ctx.createLinearGradient(
-      0,0,
-      0,canvas.height
-    );
-
-    gradient.addColorStop(
-      0,
-      "rgba(80,30,180,0.18)"
-    );
-
-    gradient.addColorStop(
-      1,
-      "rgba(10,0,30,0.28)"
-    );
-
-    ctx.fillStyle=gradient;
-
-    ctx.fillRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-
-    // Title
-
-    const style=document.getElementById("style").value;
-
-    ctx.textAlign="center";
-
-    ctx.font="bold 48px Arial";
-
-    ctx.fillStyle="white";
-
-    ctx.shadowColor="black";
-
-    ctx.shadowBlur=12;
-
-    ctx.fillText(
-      "✨ "+style,
-      canvas.width/2,
-      90
-    );
-
-    ctx.shadowBlur=0;
-
-    // Bottom branding
-
-    ctx.font="bold 34px Arial";
-
-    ctx.fillStyle="white";
-
-    ctx.fillText(
-      "🌸 Cartoon Malar AI",
-      canvas.width/2,
-      canvas.height-70
-    );
-
-    if(progressValue<1){
-
-      requestAnimationFrame(draw);
-
-    }else{
-
-      setTimeout(function(){
-
-        recorder.stop();
-
-      },200);
-
-    }
-
-  }
-
-  requestAnimationFrame(draw);
-
-}
-
-
-function downloadVideo(){
-
-  if(!videoBlob){
-
-    alert("முதலில் வீடியோ உருவாக்குங்கள்.");
-
-    return;
-  }
-
-  const url=URL.createObjectURL(videoBlob);
-
-  const a=document.createElement("a");
-
-  a.href=url;
-
-  a.download="cartoon-malar-video.webm";
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  a.remove();
-
-}
-
-
-async function shareVideo(){
-
-  if(!videoBlob){
-
-    alert("முதலில் வீடியோ உருவாக்குங்கள்.");
-
-    return;
-  }
-
-  const file=new File(
-    [videoBlob],
-    "cartoon-malar-video.webm",
-    {type:"video/webm"}
+  alert(
+   mode==="photo"
+   ? "முதலில் ஒரு போட்டோ தேர்வு செய்யுங்கள்."
+   : "முதலில் ஒரு வீடியோ தேர்வு செய்யுங்கள்."
   );
 
-  if(
-    navigator.share &&
-    navigator.canShare &&
-    navigator.canShare({files:[file]})
-  ){
+  return;
+ }
 
-    try{
+ const style=document.getElementById("style").value;
+ const prompt=document.getElementById("prompt").value.trim();
 
-      await navigator.share({
-        title:"Cartoon Malar AI",
-        text:"என் Cartoon Video 🌸",
-        files:[file]
-      });
+ const status=document.getElementById("status");
+ const statusText=document.getElementById("statusText");
 
-    }catch(e){}
+ status.style.display="block";
 
-  }else{
+ statusText.textContent="AI service checking...";
 
-    alert("இந்த browser-ல் video share வசதி இல்லை. Save செய்து WhatsApp / Instagram-ல் பகிரலாம்.");
+ /*
+  IMPORTANT:
 
+  The real AI request must be sent to a secure backend.
+
+  Do NOT put GEMINI_API_KEY or another secret
+  directly inside this HTML file.
+
+  Backend endpoints can be connected here:
+
+  POST /api/cartoon-image
+  POST /api/cartoon-video
+
+  The backend should receive:
+  - uploaded media
+  - selected style
+  - prompt
+
+  and return the generated media URL.
+ */
+
+ try{
+
+  const endpoint =
+   mode==="photo"
+   ? "/api/cartoon-image"
+   : "/api/cartoon-video";
+
+  const formData=new FormData();
+
+  formData.append("media",selectedFile);
+  formData.append("style",style);
+  formData.append("prompt",prompt);
+
+  const response=await fetch(endpoint,{
+   method:"POST",
+   body:formData
+  });
+
+  if(!response.ok){
+   throw new Error("AI backend not configured");
   }
+
+  const data=await response.json();
+
+  if(!data.url){
+   throw new Error("No generated result");
+  }
+
+  showResult(data.url);
+
+ }catch(error){
+
+  statusText.textContent=
+   "AI service இன்னும் இணைக்கப்படவில்லை.";
+
+  alert(
+   "AI generation backend இன்னும் இணைக்கப்படவில்லை. " +
+   "API key-ஐ HTML-ல் போடாமல் secure backend மூலம் இணைக்க வேண்டும்."
+  );
+
+ }
+
+}
+
+function showResult(url){
+
+ resultUrl=url;
+
+ const result=document.getElementById("result");
+
+ const resultImage=document.getElementById("resultImage");
+
+ const resultVideo=document.getElementById("resultVideo");
+
+ result.style.display="block";
+
+ if(mode==="photo"){
+
+  resultImage.src=url;
+  resultImage.style.display="block";
+  resultVideo.style.display="none";
+
+ }else{
+
+  resultVideo.src=url;
+  resultVideo.style.display="block";
+  resultImage.style.display="none";
+
+ }
+
+ document.getElementById("status").style.display="none";
+
+ result.scrollIntoView({
+  behavior:"smooth"
+ });
+
+}
+
+function downloadResult(){
+
+ if(!resultUrl){
+
+  alert("முதலில் result உருவாக வேண்டும்.");
+
+  return;
+ }
+
+ const a=document.createElement("a");
+
+ a.href=resultUrl;
+
+ a.download=
+  mode==="photo"
+  ? "cartoon-malar.jpg"
+  : "cartoon-malar-video.mp4";
+
+ document.body.appendChild(a);
+
+ a.click();
+
+ a.remove();
+
+}
+
+async function shareResult(){
+
+ if(!resultUrl){
+
+  alert("முதலில் result உருவாக வேண்டும்.");
+
+  return;
+ }
+
+ if(navigator.share){
+
+  try{
+
+   await navigator.share({
+    title:"Cartoon Malar AI",
+    text:"Created with Cartoon Malar AI",
+    url:resultUrl
+   });
+
+  }catch(e){}
+
+ }else{
+
+  alert(
+   "இந்த browser-ல் direct share இல்லை. Download செய்து Share செய்யலாம்."
+  );
+
+ }
 
 }
 
 </script>
 
 </body>
-    </html>
+</html>
