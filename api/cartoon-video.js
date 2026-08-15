@@ -1,77 +1,129 @@
 import { fal } from "@fal-ai/client";
 
+const MAX_BYTES = 18 * 1024 * 1024;
+
+function send(res, status, body) {
+  return res.status(status).json(body);
+}
+
 export default async function handler(req, res) {
   // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // OPTIONS request
+  // Browser permission check
   if (req.method === "OPTIONS") {
-    return res.status(200).end();
+    return res.status(204).end();
   }
 
   // POST only
   if (req.method !== "POST") {
-    return res.status(405).json({
+    return send(res, 405, {
+      success: false,
       error: "POST only"
+    });
+  }
+
+  // API key check
+  if (!process.env.FAL_KEY) {
+    return send(res, 500, {
+      success: false,
+      error: "FAL_KEY is missing"
     });
   }
 
   try {
     const {
-      videoUrl,
+      dataUrl,
       style = "3D Cartoon"
     } = req.body || {};
 
     // Check video
-    if (!videoUrl) {
-      return res.status(400).json({
-        error: "Please provide videoUrl"
+    if (!dataUrl || typeof dataUrl !== "string") {
+      return send(res, 400, {
+        success: false,
+        error: "Please select a video"
       });
     }
 
-    // Check API key
-    if (!process.env.FAL_KEY) {
-      return res.status(500).json({
-        error: "FAL_KEY is missing"
+    // Check base64 video
+    const match = dataUrl.match(
+      /^data:(video\/[a-zA-Z0-9.+-]+);base64,(.+)$/s
+    );
+
+    if (!match) {
+      return send(res, 400, {
+        success: false,
+        error: "Invalid video format"
       });
     }
 
-    // Configure fal
+    const mime = match[1];
+
+    // Supported formats
+    const allowed = [
+      "video/mp4",
+      "video/webm",
+      "video/quicktime"
+    ];
+
+    if (!allowed.includes(mime)) {
+      return send(res, 400, {
+        success: false,
+        error: "Please use MP4, WebM or MOV video"
+      });
+    }
+
+    // Convert base64 → file
+    const buffer = Buffer.from(match[2], "base64");
+
+    // Size limit
+    if (buffer.length > MAX_BYTES) {
+      return send(res, 413, {
+        success: false,
+        error: "Video is too large. Please use a video under 18 MB."
+      });
+    }
+
+    // Configure Fal AI
     fal.config({
       credentials: process.env.FAL_KEY
     });
 
+    // Upload video
+    const extension =
+      mime === "video/quicktime"
+        ? "mov"
+        : mime.split("/")[1];
+
+    const file = new File(
+      [buffer],
+      `cartoon-input.${extension}`,
+      { type: mime }
+    );
+
+    const videoUrl = await fal.storage.upload(file);
+
     // Cartoon prompt
     const prompt = `
-Transform this reference video into a high-quality animated cartoon.
+Transform this video into a beautiful professional ${style} cartoon animation.
 
-Cartoon style: ${style}
+Keep the same person, face, hairstyle, clothing, body movement,
+hand movement, camera movement, timing and important objects.
 
-Keep the same person and preserve:
-- facial features
-- hairstyle
-- clothing
-- body movement
-- hand movement
-- camera movement
-- scene composition
-- timing
-- background composition
+Keep the character consistent from frame to frame.
 
-Create a consistent cartoon character throughout the entire video.
+Make the animation smooth, clean, colorful and high quality.
 
-Make the animation smooth, detailed and visually attractive.
-
-Do not change the person's identity.
 Do not add extra people.
 Do not remove important objects.
+Do not change the person's identity.
 
-The final result should look like a polished professional cartoon video.
+Create a polished vertical social-media friendly cartoon video.
 `;
 
-    // Generate video
+    // Generate cartoon video
     const result = await fal.subscribe(
       "fal-ai/hunyuan-video/video-to-video",
       {
@@ -84,7 +136,9 @@ The final result should look like a polished professional cartoon video.
           strength: 0.85,
           enable_safety_checker: true
         },
+
         logs: true,
+
         onQueueUpdate: (update) => {
           if (update.status === "IN_PROGRESS") {
             update.logs?.forEach((log) => {
@@ -95,19 +149,33 @@ The final result should look like a polished professional cartoon video.
       }
     );
 
-    // Return generated video
-    return res.status(200).json({
+    // Get generated video
+    const outputUrl = result.data?.video?.url;
+
+    if (!outputUrl) {
+      throw new Error(
+        "AI did not return a video"
+      );
+    }
+
+    return send(res, 200, {
       success: true,
-      video: result.data?.video?.url || null,
+      video: outputUrl,
       requestId: result.requestId || null
     });
 
   } catch (error) {
-    console.error("Cartoon video error:", error);
 
-    return res.status(500).json({
+    console.error(
+      "Cartoon video error:",
+      error
+    );
+
+    return send(res, 500, {
       success: false,
-      error: error?.message || "Video generation failed"
+      error:
+        error?.message ||
+        "Video generation failed"
     });
   }
-      }
+        }
