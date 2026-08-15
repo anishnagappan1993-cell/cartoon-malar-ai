@@ -14,164 +14,276 @@
         body {
             background: #09030e;
             color: #ffffff;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            padding-bottom: 80px;
         }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        .main-container {
+            width: 100%;
+            max-width: 420px;
+            position: relative;
         }
-        .header h1 {
-            font-size: 36px;
+        /* Top Header Banner */
+        .banner {
+            background: linear-gradient(135deg, #2b0b3f, #150522);
+            border: 2px solid #ff4da6;
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(255, 77, 166, 0.3);
+            margin-bottom: 20px;
+        }
+        .banner h1 {
+            font-size: 28px;
             color: #ff69b4;
             font-style: italic;
             text-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
             margin-bottom: 5px;
         }
-        .header p {
+        .banner p {
             color: #d8b4fe;
-            font-size: 14px;
+            font-size: 12px;
+            margin-bottom: 15px;
         }
-        .card-container {
+        .cards-row {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            max-width: 400px;
+            gap: 10px;
         }
-        .card {
-            background: linear-gradient(135deg, #2b0b3f, #150522);
-            border: 2px solid #ff4da6;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(255, 77, 166, 0.2);
-            text-align: left;
+        .mini-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 77, 166, 0.3);
+            border-radius: 12px;
+            padding: 10px;
+            width: 50%;
         }
-        .card h3 {
-            color: #ffffff;
-            font-size: 20px;
+        .mini-card h4 {
+            font-size: 13px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .mini-card p {
+            font-size: 10px;
+            color: #c084fc;
             margin-bottom: 8px;
         }
-        .card p {
-            color: #c084fc;
-            font-size: 13px;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-        .btn {
+        .action-btn {
             background: linear-gradient(90deg, #ec4899, #8b5cf6);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 10px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
-            display: inline-flex;
+        }
+
+        /* Section Titles */
+        .section-title {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin: 20px 0 10px 0;
+            font-size: 15px;
+            font-weight: bold;
+            color: #f3e8ff;
+        }
+        .section-title span {
+            font-size: 12px;
+            color: #c084fc;
+            cursor: pointer;
+        }
+
+        /* Popular Styles Horizontal Scroll */
+        .horizontal-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .style-item {
+            min-width: 80px;
+            text-align: center;
+            background: #150522;
+            border: 1px solid #4a1d6e;
+            border-radius: 12px;
+            padding: 8px;
+        }
+        .style-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff4da6;
+            margin-bottom: 5px;
+        }
+        .style-item p {
+            font-size: 11px;
+            color: #fff;
+        }
+
+        /* Recent Creations Grid */
+        .creations-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 8px;
         }
-        .btn:active {
-            transform: scale(0.95);
-        }
-        input[type="file"] {
-            display: none;
-        }
-        .result-box {
-            margin-top: 15px;
-            display: none;
-            text-align: center;
-        }
-        .result-box img, .result-box video {
-            width: 100%;
+        .creation-card {
+            background: #150522;
             border-radius: 10px;
-            max-height: 200px;
+            overflow: hidden;
+            border: 1px solid #3b0764;
+            height: 90px;
+        }
+        .creation-card img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
-        .loading {
-            color: #facc15;
+
+        /* Bottom Floating Bar */
+        .create-banner {
+            background: linear-gradient(90deg, #581c87, #831843);
+            border: 1px solid #ec4899;
+            border-radius: 20px;
+            padding: 12px;
+            text-align: center;
+            margin-top: 20px;
             font-size: 13px;
-            margin-top: 10px;
-            display: none;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #13031f;
+            border-top: 1px solid #3b0764;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 100;
+        }
+        .nav-item {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 10px;
+            text-decoration: none;
+        }
+        .nav-item.active {
+            color: #ff69b4;
+        }
+        .nav-center-btn {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-top: -15px;
+            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Cartoon Malar AI</h1>
-        <p>✨ Convert Your Memories Into Beautiful Cartoons ✨</p>
-    </div>
-
-    <div class="card-container">
-        <!-- Photo to Cartoon Card -->
-        <div class="card">
-            <h3>Photo to Cartoon</h3>
-            <p>Turn your photos into stunning cartoon art effortlessly.</p>
-            <label for="photoInput" class="btn">Get Started ➔</label>
-            <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(event)">
+    <div class="main-container">
+        <!-- Top Banner -->
+        <div class="banner">
+            <h1>Cartoon Malar AI</h1>
+            <p>✨ Convert Your Memories Into Beautiful Cartoons ✨</p>
             
-            <div class="loading" id="photoLoading">🎨 கார்ட்டூனாக மாறிக்கொண்டிருக்கிறது...</div>
-            <div class="result-box" id="photoResult">
-                <img id="outputPhoto" alt="Cartoon Photo">
+            <div class="cards-row">
+                <div class="mini-card">
+                    <h4>Photo to Cartoon</h4>
+                    <p>Stunning art</p>
+                    <button class="action-btn">Get Started ➔</button>
+                </div>
+                <div class="mini-card">
+                    <h4>Video to Cartoon</h4>
+                    <p>Amazing videos</p>
+                    <button class="action-btn">Get Started ➔</button>
+                </div>
             </div>
         </div>
 
-        <!-- Video to Cartoon Card -->
-        <div class="card">
-            <h3>Video to Cartoon</h3>
-            <p>Turn your videos into amazing cartoon animation videos.</p>
-            <label for="videoInput" class="btn">Get Started ➔</label>
-            <input type="file" id="videoInput" accept="video/*" onchange="handleVideo(event)">
-            
-            <div class="loading" id="videoLoading">🎬 அனிமேஷன் வீடியோ ரெடியாகுது மச்சி...</div>
-            <div class="result-box" id="videoResult">
-                <video id="outputVideo" controls></video>
+        <!-- Popular Styles -->
+        <div class="section-title">
+            Popular Styles <span>View All</span>
+        </div>
+        <div class="horizontal-scroll">
+            <div class="style-item">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Style">
+                <p>3D Cartoon</p>
             </div>
+            <div class="style-item">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100" alt="Style">
+                <p>Soft 3D</p>
+            </div>
+            <div class="style-item">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" alt="Style">
+                <p>Anime</p>
+            </div>
+            <div class="style-item">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Style">
+                <p>Comic</p>
+            </div>
+            <div class="style-item">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="Style">
+                <p>Sketch</p>
+            </div>
+        </div>
+
+        <!-- Recent Creations -->
+        <div class="section-title">
+            Recent Creations <span>See All</span>
+        </div>
+        <div class="creations-grid">
+            <div class="creation-card"><img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150" alt="Creation"></div>
+            <div class="creation-card"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Creation"></div>
+            <div class="creation-card"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Creation"></div>
+            <div class="creation-card"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150" alt="Creation"></div>
+        </div>
+
+        <!-- Bottom Action Banner -->
+        <div class="create-banner">
+            ✨ Create Cartoon Now <br><span style="font-size: 10px; color: #d8b4fe; font-weight: normal;">Choose Photo or Video to Get Started</span>
         </div>
     </div>
 
-    <script>
-        function handlePhoto(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const loading = document.getElementById('photoLoading');
-            const resultBox = document.getElementById('photoResult');
-            const outputPhoto = document.getElementById('outputPhoto');
-
-            loading.style.display = "block";
-            resultBox.style.display = "none";
-
-            setTimeout(() => {
-                loading.style.display = "none";
-                outputPhoto.src = URL.createObjectURL(file);
-                resultBox.style.display = "block";
-            }, 2500);
-        }
-
-        function handleVideo(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const loading = document.getElementById('videoLoading');
-            const resultBox = document.getElementById('videoResult');
-            const outputVideo = document.getElementById('outputVideo');
-
-            loading.style.display = "block";
-            resultBox.style.display = "none";
-
-            setTimeout(() => {
-                loading.style.display = "none";
-                outputVideo.src = URL.createObjectURL(file);
-                resultBox.style.display = "block";
-            }, 3000);
-        }
-    </script>
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <div>🏠</div>
+            <div>Home</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div>🎨</div>
+            <div>Cartoon</div>
+        </a>
+        <div class="nav-center-btn">+</div>
+        <a href="#" class="nav-item">
+            <div>🖼️</div>
+            <div>Creations</div>
+        </a>
+        <a href="#" class="nav-item">
+            <div>👤</div>
+            <div>Profile</div>
+        </a>
+    </div>
 
 </body>
 </html>
