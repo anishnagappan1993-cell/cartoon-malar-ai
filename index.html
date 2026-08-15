@@ -2,770 +2,707 @@
 <html lang="ta">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Cartoon Malar AI</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Arial, sans-serif;
-  min-height:100vh;
-  color:#fff;
-  background:
-    radial-gradient(circle at 10% 10%, #6d28d9 0, transparent 28%),
-    radial-gradient(circle at 90% 20%, #db2777 0, transparent 25%),
-    radial-gradient(circle at 50% 100%, #2563eb 0, transparent 30%),
-    #070914;
+font-family:Arial,sans-serif;
+background:
+radial-gradient(circle at 75% 15%,#ff168b55,transparent 25%),
+radial-gradient(circle at 25% 70%,#ff006655,transparent 25%),
+linear-gradient(135deg,#09000d,#180015 45%,#050006);
+color:white;
+min-height:100vh;
+overflow-x:hidden;
 }
 
-header{
-  height:76px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 20px;
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(7,9,20,.82);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.08);
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+background:
+radial-gradient(circle at 20% 20%,#ff149955 0 2px,transparent 3px),
+radial-gradient(circle at 80% 60%,#ff4da655 0 2px,transparent 3px);
+background-size:90px 90px,130px 130px;
+opacity:.35;
 }
 
-.logo{
-  font-size:23px;
-  font-weight:800;
+.app{
+display:flex;
+min-height:100vh;
+position:relative;
+z-index:1;
 }
 
-.logo span{
-  margin-right:7px;
+.sidebar{
+width:245px;
+min-height:100vh;
+padding:25px 18px;
+background:#09030dcc;
+border-right:1px solid #ff299955;
+backdrop-filter:blur(20px);
+position:fixed;
+left:0;
+top:0;
+bottom:0;
 }
 
-.loginBtn{
-  border:0;
-  color:#fff;
-  font-weight:700;
-  padding:11px 18px;
-  border-radius:24px;
-  background:linear-gradient(135deg,#7c3aed,#d946ef);
+.brand{
+font-size:24px;
+font-weight:900;
+text-align:center;
+margin-bottom:28px;
+background:linear-gradient(90deg,#ff4db8,#fff,#ff43a9);
+-webkit-background-clip:text;
+color:transparent;
 }
 
-.container{
-  max-width:720px;
-  margin:auto;
-  padding:25px 16px 60px;
+.premium{
+border:1px solid #ffb52f;
+border-radius:18px;
+padding:12px;
+text-align:center;
+margin-bottom:20px;
+color:#ffd66b;
+background:#ff9d0010;
+box-shadow:0 0 25px #ff9d0030;
+}
+
+.nav{
+display:flex;
+align-items:center;
+gap:15px;
+padding:15px;
+margin:7px 0;
+border-radius:16px;
+font-size:17px;
+cursor:pointer;
+color:#eee;
+}
+
+.nav:hover,.nav.active{
+background:linear-gradient(90deg,#ff159566,#8b00ff44);
+box-shadow:0 0 20px #ff159944;
+}
+
+.nav span{
+font-size:23px;
+}
+
+.sidePremium{
+position:absolute;
+left:18px;
+right:18px;
+bottom:25px;
+padding:18px;
+border-radius:20px;
+text-align:center;
+background:linear-gradient(145deg,#ff178b33,#6b00ff33);
+border:1px solid #ff42b777;
+}
+
+.sidePremium h3{
+color:#ffd34d;
+margin-bottom:8px;
+}
+
+.upgrade{
+margin-top:12px;
+border:0;
+border-radius:25px;
+padding:11px 20px;
+color:white;
+font-weight:bold;
+background:linear-gradient(90deg,#ff1688,#9d28ff);
+}
+
+.main{
+margin-left:245px;
+width:calc(100% - 245px);
+padding:25px 28px 80px;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.top h2{
+font-size:18px;
+color:#ddd;
+}
+
+.bell{
+width:45px;
+height:45px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#ff149933;
+border:1px solid #ff4dbb;
+font-size:22px;
 }
 
 .hero{
-  text-align:center;
-  padding:25px 10px;
+position:relative;
+min-height:440px;
+border-radius:28px;
+overflow:hidden;
+border:1px solid #ff299966;
+background:
+radial-gradient(circle at 80% 35%,#ff1a8755,transparent 30%),
+radial-gradient(circle at 25% 70%,#9d00ff44,transparent 30%),
+linear-gradient(120deg,#12000f,#21001e,#090009);
+box-shadow:0 0 50px #ff008833;
+display:flex;
+align-items:center;
+padding:45px;
 }
 
-.hero h1{
-  font-size:34px;
-  margin-bottom:12px;
+.roses{
+position:absolute;
+inset:0;
+opacity:.25;
+font-size:70px;
+line-height:1.7;
+letter-spacing:20px;
+pointer-events:none;
 }
 
-.hero p{
-  color:#aeb4c7;
-  line-height:1.6;
+.heroText{
+position:relative;
+z-index:2;
+max-width:55%;
+}
+
+.script{
+font-size:38px;
+font-style:italic;
+color:#ff69c7;
+margin-bottom:2px;
+}
+
+.heroTitle{
+font-size:56px;
+font-weight:900;
+background:linear-gradient(90deg,#fff,#ffb3e7,#fff);
+-webkit-background-clip:text;
+color:transparent;
+margin-bottom:18px;
+}
+
+.heroSub{
+font-size:20px;
+line-height:1.5;
+color:#ffd8ee;
+}
+
+.doll{
+position:absolute;
+right:4%;
+bottom:-8px;
+width:390px;
+height:390px;
+z-index:2;
+}
+
+.doll .hair{
+position:absolute;
+width:250px;
+height:285px;
+left:70px;
+top:45px;
+background:linear-gradient(145deg,#3a130e,#9a351e,#32100d);
+border-radius:52% 48% 45% 45%;
+box-shadow:inset -20px -15px 30px #210807;
+}
+
+.doll .face{
+position:absolute;
+width:190px;
+height:205px;
+left:100px;
+top:92px;
+background:linear-gradient(145deg,#ffe0c2,#ffc3a2);
+border-radius:48% 48% 45% 45%;
+box-shadow:inset -12px -5px 15px #dc8c78;
+}
+
+.eye{
+position:absolute;
+width:38px;
+height:48px;
+background:#24100f;
+border-radius:50%;
+top:155px;
+z-index:4;
+box-shadow:inset 8px 5px 0 #fff;
+}
+
+.eye.left{left:125px}
+.eye.right{left:225px}
+
+.mouth{
+position:absolute;
+left:175px;
+top:230px;
+width:38px;
+height:18px;
+border-bottom:4px solid #9e3151;
+border-radius:50%;
+z-index:5;
+}
+
+.rose{
+position:absolute;
+right:70px;
+top:70px;
+font-size:55px;
+z-index:5;
+}
+
+.body{
+position:absolute;
+width:210px;
+height:135px;
+left:90px;
+top:270px;
+background:linear-gradient(145deg,#ff91c8,#c52a87);
+border-radius:80px 80px 20px 20px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+margin-top:20px;
 }
 
 .card{
-  background:rgba(18,23,38,.88);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:25px;
-  padding:20px;
-  margin-top:18px;
-  box-shadow:0 20px 60px rgba(0,0,0,.28);
+padding:25px;
+border-radius:24px;
+border:1px solid #ff3ca977;
+background:linear-gradient(145deg,#ff187722,#8b00ff22);
+box-shadow:0 10px 30px #0008;
 }
 
-.switch{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:20px;
+.card h2{
+font-size:25px;
+margin-bottom:10px;
 }
 
-.switch button{
-  height:58px;
-  border-radius:17px;
-  border:1px solid #343b52;
-  background:#0c101c;
-  color:#fff;
-  font-size:17px;
-  font-weight:700;
+.card p{
+color:#d8c9d7;
+line-height:1.5;
+margin-bottom:18px;
 }
 
-.switch button.active{
-  border:0;
-  background:linear-gradient(135deg,#7c3aed,#d946ef);
+.cardIcon{
+float:right;
+font-size:70px;
+margin-top:-10px;
 }
 
-.label{
-  display:block;
-  margin:18px 0 9px;
-  font-size:16px;
-  font-weight:700;
+.btn{
+border:0;
+border-radius:25px;
+padding:13px 22px;
+color:white;
+font-weight:bold;
+font-size:16px;
+background:linear-gradient(90deg,#ff1688,#8c25ff);
+box-shadow:0 0 20px #ff168855;
 }
 
-.upload{
-  border:2px dashed #414960;
-  min-height:190px;
-  border-radius:22px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-  cursor:pointer;
-  background:rgba(8,11,21,.45);
+.section{
+margin-top:25px;
 }
 
-.upload:hover{
-  border-color:#a855f7;
+.sectionHead{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
 }
 
-.uploadIcon{
-  font-size:48px;
-  margin-bottom:10px;
+.sectionHead h2{
+font-size:21px;
 }
 
-.uploadTitle{
-  font-size:18px;
-  font-weight:700;
+.view{
+color:#aaa;
+border:1px solid #ffffff22;
+padding:8px 15px;
+border-radius:20px;
 }
 
-.uploadSub{
-  color:#9299ad;
-  margin-top:7px;
+.styles{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:12px;
 }
 
-input[type=file]{
-  display:none;
+.style{
+height:145px;
+border-radius:18px;
+overflow:hidden;
+position:relative;
+border:1px solid #ffffff22;
+background:linear-gradient(145deg,#30152d,#130713);
+display:flex;
+align-items:flex-end;
+justify-content:center;
+padding-bottom:12px;
+font-weight:bold;
 }
 
-.preview{
-  width:100%;
-  max-height:430px;
-  object-fit:contain;
-  border-radius:20px;
-  margin-top:14px;
-  background:#000;
-  display:none;
+.style:nth-child(1){background:linear-gradient(145deg,#ff197c,#3d0c32)}
+.style:nth-child(2){background:linear-gradient(145deg,#ffb09d,#55202c)}
+.style:nth-child(3){background:linear-gradient(145deg,#27133b,#d62b81)}
+.style:nth-child(4){background:linear-gradient(145deg,#422018,#ff7035)}
+.style:nth-child(5){background:linear-gradient(145deg,#ddd,#555)}
+
+.styleIcon{
+position:absolute;
+top:15px;
+font-size:58px;
 }
 
-select,
-textarea,
-input{
-  width:100%;
-  border:1px solid #343b52;
-  background:#090d18;
-  color:#fff;
-  border-radius:16px;
-  padding:15px;
-  font-size:16px;
-  outline:none;
+.creations{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
 }
 
-select{
-  height:54px;
+.creation{
+height:150px;
+border-radius:18px;
+border:1px solid #ffffff22;
+background:linear-gradient(145deg,#3a172f,#120711);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:65px;
 }
 
-textarea{
-  min-height:110px;
-  resize:vertical;
+.createNow{
+margin:25px auto;
+max-width:620px;
+padding:18px;
+border-radius:30px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:linear-gradient(90deg,#ff008855,#7c00ff66);
+border:1px solid #ff42c5;
+box-shadow:0 0 30px #ff009955;
 }
 
-select:focus,
-textarea:focus,
-input:focus{
-  border-color:#a855f7;
+.createNow h2{
+font-size:21px;
 }
 
-.create{
-  width:100%;
-  height:60px;
-  border:0;
-  border-radius:18px;
-  margin-top:20px;
-  color:#fff;
-  font-size:18px;
-  font-weight:800;
-  background:linear-gradient(135deg,#7c3aed,#d946ef);
+.arrow{
+width:50px;
+height:50px;
+border-radius:50%;
+border:0;
+font-size:25px;
+color:white;
+background:#762cff;
 }
 
-.create:disabled{
-  opacity:.55;
+.mobileNav{
+display:none;
 }
 
-.status{
-  display:none;
-  text-align:center;
-  margin-top:18px;
-  padding:18px;
-  border-radius:18px;
-  background:#0d1220;
-  border:1px solid #30384e;
+@media(max-width:800px){
+
+.sidebar{
+display:none;
 }
 
-.spinner{
-  width:34px;
-  height:34px;
-  border:4px solid #343b52;
-  border-top-color:#c084fc;
-  border-radius:50%;
-  margin:0 auto 12px;
-  animation:spin 1s linear infinite;
+.main{
+margin-left:0;
+width:100%;
+padding:15px 12px 100px;
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg)}
+.hero{
+min-height:520px;
+padding:25px 20px;
+align-items:flex-start;
 }
 
-.result{
-  display:none;
-  margin-top:18px;
+.heroText{
+max-width:100%;
+text-align:center;
 }
 
-.result video,
-.result img{
-  width:100%;
-  border-radius:20px;
-  background:#000;
+.script{
+font-size:30px;
 }
 
-.download{
-  display:block;
-  text-align:center;
-  text-decoration:none;
-  color:#fff;
-  font-weight:800;
-  background:#16a34a;
-  padding:15px;
-  border-radius:16px;
-  margin-top:12px;
+.heroTitle{
+font-size:42px;
 }
 
-.loginModal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:rgba(0,0,0,.75);
-  backdrop-filter:blur(8px);
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+.heroSub{
+font-size:17px;
 }
 
-.loginBox{
-  width:100%;
-  max-width:420px;
-  background:#121726;
-  border:1px solid #343b52;
-  border-radius:25px;
-  padding:25px;
+.doll{
+width:310px;
+height:310px;
+right:50%;
+transform:translateX(50%);
+bottom:-10px;
 }
 
-.loginBox h2{
-  margin-bottom:18px;
+.cards{
+grid-template-columns:1fr;
 }
 
-.loginBox input{
-  margin-top:10px;
+.styles{
+grid-template-columns:repeat(2,1fr);
 }
 
-.loginBox button{
-  width:100%;
-  margin-top:14px;
-  height:52px;
-  border:0;
-  border-radius:15px;
-  color:#fff;
-  font-weight:700;
-  background:linear-gradient(135deg,#7c3aed,#d946ef);
+.creations{
+grid-template-columns:repeat(2,1fr);
 }
 
-.close{
-  background:#252b3b!important;
+.mobileNav{
+display:flex;
+position:fixed;
+bottom:10px;
+left:10px;
+right:10px;
+height:70px;
+border-radius:30px;
+background:#130812ee;
+border:1px solid #ff3eaf88;
+backdrop-filter:blur(20px);
+z-index:50;
+align-items:center;
+justify-content:space-around;
 }
 
-.footer{
-  text-align:center;
-  color:#70778c;
-  margin-top:35px;
-  font-size:13px;
+.mobileNav div{
+text-align:center;
+font-size:12px;
+color:#ddd;
+}
+
+.mobileNav span{
+display:block;
+font-size:24px;
+}
+
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">
-    <span>🌸</span>Cartoon Malar AI
-  </div>
-  <button class="loginBtn" onclick="openLogin()">LOGIN</button>
-</header>
+<div class="app">
 
-<div class="container">
+<aside class="sidebar">
 
-  <section class="hero">
-    <h1>Photo & Video → Cartoon ✨</h1>
-    <p>
-      ஒரு போட்டோ அல்லது ஒரு சாதாரண வீடியோவை upload செய்து
-      AI cartoon version உருவாக்குங்கள்.
-    </p>
-  </section>
+<div class="brand">🌸 Cartoon Malar AI</div>
 
-  <div class="card">
+<div class="premium">👑 Premium</div>
 
-    <div class="switch">
-      <button id="photoBtn" class="active" onclick="setMode('photo')">
-        📸 Photo
-      </button>
+<div class="nav active"><span>⌂</span> Home</div>
+<div class="nav" onclick="photo()"><span>▧</span> Photo to Cartoon</div>
+<div class="nav" onclick="video()"><span>▣</span> Video to Cartoon</div>
+<div class="nav"><span>🎨</span> Styles</div>
+<div class="nav"><span>▧</span> My Creations</div>
+<div class="nav"><span>♢</span> Premium</div>
+<div class="nav"><span>♙</span> Profile</div>
+<div class="nav"><span>⚙</span> Settings</div>
 
-      <button id="videoBtn" onclick="setMode('video')">
-        🎥 Video
-      </button>
-    </div>
+<div class="sidePremium">
+<h3>👑 Go Premium</h3>
+<p>Unlock all styles,<br>remove ads & more!</p>
+<button class="upgrade">Upgrade Now</button>
+</div>
 
-    <label class="label">📤 Upload</label>
+</aside>
 
-    <label class="upload" for="fileInput">
+<main class="main">
 
-      <div>
-        <div class="uploadIcon" id="uploadIcon">🖼️</div>
+<div class="top">
+<h2>Welcome to Cartoon Malar AI 🌸</h2>
+<div class="bell">🔔</div>
+</div>
 
-        <div class="uploadTitle" id="uploadTitle">
-          Select one photo
-        </div>
+<section class="hero">
 
-        <div class="uploadSub" id="uploadSub">
-          JPG, PNG or WEBP
-        </div>
-      </div>
+<div class="roses">
+🌹　🌹　　　🌹<br>
+　🌹　　🌹　　🌹<br>
+🌹　　　🌹　　　🌹
+</div>
 
-    </label>
+<div class="heroText">
+<div class="script">Cartoon♡</div>
+<div class="heroTitle">Malar AI</div>
 
-    <input
-      id="fileInput"
-      type="file"
-      accept="image/jpeg,image/png,image/webp"
-      onchange="handleFile(event)"
-    >
+<p class="heroSub">
+✨ Convert Your Memories<br>
+Into Beautiful Cartoons ✨
+</p>
+</div>
 
-    <img id="imagePreview" class="preview">
+<div class="doll">
 
-    <video
-      id="videoPreview"
-      class="preview"
-      controls
-      playsinline
-    ></video>
+<div class="hair"></div>
+<div class="face"></div>
 
-    <label class="label">🎨 Cartoon Style</label>
+<div class="eye left"></div>
+<div class="eye right"></div>
 
-    <select id="style">
-      <option value="cinematic_3d">Cinematic 3D</option>
-      <option value="soft_3d">Soft 3D Cartoon</option>
-      <option value="anime">Anime</option>
-      <option value="pixar_like">3D Animated</option>
-      <option value="comic">Comic</option>
-      <option value="watercolor">Watercolor Cartoon</option>
-    </select>
+<div class="mouth"></div>
 
-    <label class="label">✍️ Scene / Prompt</label>
+<div class="rose">🌹</div>
 
-    <textarea
-      id="prompt"
-      placeholder="உதாரணம்: அழகான sunset beach, cinematic lighting..."
-    ></textarea>
-
-    <button class="create" id="createBtn" onclick="createCartoon()">
-      ✨ Create Cartoon
-    </button>
-
-    <div class="status" id="status">
-      <div class="spinner"></div>
-      <div id="statusText">AI cartoon உருவாக்கப்படுகிறது...</div>
-    </div>
-
-    <div class="result" id="result">
-      <h3 style="margin-bottom:12px;">✨ Your Cartoon Result</h3>
-
-      <video
-        id="resultVideo"
-        controls
-        playsinline
-        style="display:none"
-      ></video>
-
-      <img
-        id="resultImage"
-        style="display:none"
-      >
-
-      <a
-        id="downloadBtn"
-        class="download"
-        href="#"
-        download
-      >
-        ⬇️ Download Cartoon
-      </a>
-    </div>
-
-  </div>
-
-  <div class="footer">
-    🌸 Cartoon Malar AI • AI Photo & Video Cartoon Creator
-  </div>
+<div class="body"></div>
 
 </div>
 
-<!-- LOGIN -->
+</section>
 
-<div class="loginModal" id="loginModal">
+<section class="cards">
 
-  <div class="loginBox">
+<div class="card">
+<div class="cardIcon">🖼️</div>
+<h2>Photo to<br>Cartoon</h2>
+<p>Turn your photos into stunning cartoon art</p>
+<button class="btn" onclick="photo()">Get Started →</button>
+</div>
 
-    <h2>🔐 Cartoon Malar AI Login</h2>
+<div class="card">
+<div class="cardIcon">🎬</div>
+<h2>Video to<br>Cartoon</h2>
+<p>Turn your videos into amazing cartoon videos</p>
+<button class="btn" onclick="video()">Get Started →</button>
+</div>
 
-    <input
-      id="loginEmail"
-      type="email"
-      placeholder="Email"
-    >
+</section>
 
-    <input
-      id="loginPassword"
-      type="password"
-      placeholder="Password"
-    >
+<section class="section">
 
-    <button onclick="login()">
-      Login / Create Account
-    </button>
+<div class="sectionHead">
+<h2>Popular Styles ✨</h2>
+<div class="view">View All</div>
+</div>
 
-    <button class="close" onclick="closeLogin()">
-      Close
-    </button>
+<div class="styles">
 
-  </div>
+<div class="style">
+<div class="styleIcon">👧🏻</div>
+3D Cartoon
+</div>
+
+<div class="style">
+<div class="styleIcon">👩🏻</div>
+Soft 3D
+</div>
+
+<div class="style">
+<div class="styleIcon">👩🏻‍🎤</div>
+Anime
+</div>
+
+<div class="style">
+<div class="styleIcon">👩🏽</div>
+Comic
+</div>
+
+<div class="style">
+<div class="styleIcon">👩🏼</div>
+Sketch
+</div>
 
 </div>
+
+</section>
+
+<section class="section">
+
+<div class="sectionHead">
+<h2>Recent Creations</h2>
+<div class="view">See All</div>
+</div>
+
+<div class="creations">
+
+<div class="creation">👦🏻</div>
+<div class="creation">👧🏻</div>
+<div class="creation">👩🏻‍❤️‍👨🏻</div>
+<div class="creation">🧑🏻</div>
+
+</div>
+
+</section>
+
+<div class="createNow">
+
+<div>
+<h2>✨ Create Cartoon Now</h2>
+<p>Choose Photo or Video to Get Started</p>
+</div>
+
+<button class="arrow" onclick="photo()">→</button>
+
+</div>
+
+</main>
+
+</div>
+
+<nav class="mobileNav">
+
+<div onclick="location.reload()">
+<span>⌂</span>Home
+</div>
+
+<div onclick="photo()">
+<span>🎨</span>Cartoon
+</div>
+
+<div onclick="photo()" style="font-size:30px">
+<span>＋</span>
+</div>
+
+<div>
+<span>▧</span>Creations
+</div>
+
+<div>
+<span>♙</span>Profile
+</div>
+
+</nav>
 
 <script>
 
-let mode = "photo";
-let selectedFile = null;
-
-/* =========================
-   MODE
-========================= */
-
-function setMode(newMode){
-
-  mode = newMode;
-
-  const photoBtn = document.getElementById("photoBtn");
-  const videoBtn = document.getElementById("videoBtn");
-
-  const fileInput = document.getElementById("fileInput");
-
-  const uploadIcon = document.getElementById("uploadIcon");
-  const uploadTitle = document.getElementById("uploadTitle");
-  const uploadSub = document.getElementById("uploadSub");
-
-  const imagePreview = document.getElementById("imagePreview");
-  const videoPreview = document.getElementById("videoPreview");
-
-  selectedFile = null;
-
-  fileInput.value = "";
-
-  imagePreview.style.display = "none";
-  videoPreview.style.display = "none";
-
-  if(mode === "photo"){
-
-    photoBtn.classList.add("active");
-    videoBtn.classList.remove("active");
-
-    uploadIcon.textContent = "🖼️";
-    uploadTitle.textContent = "Select one photo";
-    uploadSub.textContent = "JPG, PNG or WEBP";
-
-    fileInput.accept =
-      "image/jpeg,image/png,image/webp";
-
-  }else{
-
-    videoBtn.classList.add("active");
-    photoBtn.classList.remove("active");
-
-    uploadIcon.textContent = "🎥";
-    uploadTitle.textContent = "Select one normal video";
-    uploadSub.textContent = "MP4, MOV or WEBM";
-
-    fileInput.accept =
-      "video/mp4,video/quicktime,video/webm";
-  }
+function photo(){
+alert("📸 Photo to Cartoon\n\nஅடுத்த கட்டத்தில் இங்கே Photo Upload + AI Cartoon உருவாக்கும் வசதி இணைக்கப்படும்.");
 }
 
-
-/* =========================
-   FILE
-========================= */
-
-function handleFile(event){
-
-  const file = event.target.files[0];
-
-  if(!file) return;
-
-  selectedFile = file;
-
-  const imagePreview =
-    document.getElementById("imagePreview");
-
-  const videoPreview =
-    document.getElementById("videoPreview");
-
-  const url = URL.createObjectURL(file);
-
-  if(mode === "photo"){
-
-    imagePreview.src = url;
-    imagePreview.style.display = "block";
-
-    videoPreview.style.display = "none";
-
-  }else{
-
-    videoPreview.src = url;
-    videoPreview.style.display = "block";
-
-    imagePreview.style.display = "none";
-
-    /*
-      IMPORTANT:
-      Browser preview keeps the original
-      video's audio track.
-    */
-
-    videoPreview.muted = false;
-  }
-}
-
-
-/* =========================
-   CREATE CARTOON
-========================= */
-
-async function createCartoon(){
-
-  if(!selectedFile){
-
-    alert(
-      mode === "photo"
-      ? "முதலில் ஒரு போட்டோ தேர்வு செய்யுங்கள்."
-      : "முதலில் ஒரு வீடியோ தேர்வு செய்யுங்கள்."
-    );
-
-    return;
-  }
-
-  const createBtn =
-    document.getElementById("createBtn");
-
-  const status =
-    document.getElementById("status");
-
-  const statusText =
-    document.getElementById("statusText");
-
-  const result =
-    document.getElementById("result");
-
-  const style =
-    document.getElementById("style").value;
-
-  const prompt =
-    document.getElementById("prompt").value;
-
-  createBtn.disabled = true;
-
-  result.style.display = "none";
-  status.style.display = "block";
-
-  statusText.textContent =
-    "AI cartoon உருவாக்கப்படுகிறது...";
-
-  try{
-
-    const formData = new FormData();
-
-    formData.append("file", selectedFile);
-    formData.append("mode", mode);
-    formData.append("style", style);
-    formData.append("prompt", prompt);
-
-    /*
-      SECURE BACKEND
-
-      API key இங்கே போடக்கூடாது.
-
-      Backend endpoint:
-      /api/generate
-    */
-
-    const response = await fetch(
-      "/api/generate",
-      {
-        method:"POST",
-        body:formData
-      }
-    );
-
-    if(!response.ok){
-
-      throw new Error(
-        "AI backend connection failed"
-      );
-    }
-
-    const data = await response.json();
-
-    if(!data.output){
-
-      throw new Error(
-        "AI output கிடைக்கவில்லை"
-      );
-    }
-
-    showResult(data.output);
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "AI backend இன்னும் இணைக்கப்படவில்லை.\n\n" +
-      "Frontend தயாராக உள்ளது. " +
-      "அடுத்ததாக secure AI backend இணைக்க வேண்டும்."
-    );
-
-  }finally{
-
-    createBtn.disabled = false;
-    status.style.display = "none";
-  }
-}
-
-
-/* =========================
-   RESULT
-========================= */
-
-function showResult(output){
-
-  const result =
-    document.getElementById("result");
-
-  const resultVideo =
-    document.getElementById("resultVideo");
-
-  const resultImage =
-    document.getElementById("resultImage");
-
-  const downloadBtn =
-    document.getElementById("downloadBtn");
-
-  result.style.display = "block";
-
-  if(mode === "video"){
-
-    resultVideo.src = output;
-    resultVideo.style.display = "block";
-
-    resultImage.style.display = "none";
-
-    downloadBtn.href = output;
-    downloadBtn.download =
-      "cartoon-malar-video.mp4";
-
-  }else{
-
-    resultImage.src = output;
-    resultImage.style.display = "block";
-
-    resultVideo.style.display = "none";
-
-    downloadBtn.href = output;
-    downloadBtn.download =
-      "cartoon-malar-image.png";
-  }
-}
-
-
-/* =========================
-   LOGIN UI
-========================= */
-
-function openLogin(){
-
-  document.getElementById(
-    "loginModal"
-  ).style.display = "flex";
-}
-
-function closeLogin(){
-
-  document.getElementById(
-    "loginModal"
-  ).style.display = "none";
-}
-
-function login(){
-
-  const email =
-    document.getElementById("loginEmail").value;
-
-  const password =
-    document.getElementById("loginPassword").value;
-
-  if(!email || !password){
-
-    alert("Email மற்றும் Password கொடுக்கவும்.");
-
-    return;
-  }
-
-  /*
-    Real production login should use
-    Firebase Authentication or another
-    secure authentication backend.
-
-    Do NOT store passwords in localStorage.
-  */
-
-  alert(
-    "Login UI தயாராக உள்ளது. " +
-    "அடுத்த step-ல் secure Firebase Login இணைக்கலாம்."
-  );
-
-  closeLogin();
+function video(){
+alert("🎥 Video to Cartoon\n\nஅடுத்த கட்டத்தில் இங்கே Video Upload + AI Cartoon உருவாக்கும் வசதி இணைக்கப்படும்.");
 }
 
 </script>
 
 </body>
- </html>
+  </html>
