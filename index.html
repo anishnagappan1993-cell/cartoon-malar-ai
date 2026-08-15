@@ -1,708 +1,177 @@
 <!DOCTYPE html>
 <html lang="ta">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Cartoon Malar AI</title>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:Arial,sans-serif;
-background:
-radial-gradient(circle at 75% 15%,#ff168b55,transparent 25%),
-radial-gradient(circle at 25% 70%,#ff006655,transparent 25%),
-linear-gradient(135deg,#09000d,#180015 45%,#050006);
-color:white;
-min-height:100vh;
-overflow-x:hidden;
-}
-
-body:before{
-content:"";
-position:fixed;
-inset:0;
-pointer-events:none;
-background:
-radial-gradient(circle at 20% 20%,#ff149955 0 2px,transparent 3px),
-radial-gradient(circle at 80% 60%,#ff4da655 0 2px,transparent 3px);
-background-size:90px 90px,130px 130px;
-opacity:.35;
-}
-
-.app{
-display:flex;
-min-height:100vh;
-position:relative;
-z-index:1;
-}
-
-.sidebar{
-width:245px;
-min-height:100vh;
-padding:25px 18px;
-background:#09030dcc;
-border-right:1px solid #ff299955;
-backdrop-filter:blur(20px);
-position:fixed;
-left:0;
-top:0;
-bottom:0;
-}
-
-.brand{
-font-size:24px;
-font-weight:900;
-text-align:center;
-margin-bottom:28px;
-background:linear-gradient(90deg,#ff4db8,#fff,#ff43a9);
--webkit-background-clip:text;
-color:transparent;
-}
-
-.premium{
-border:1px solid #ffb52f;
-border-radius:18px;
-padding:12px;
-text-align:center;
-margin-bottom:20px;
-color:#ffd66b;
-background:#ff9d0010;
-box-shadow:0 0 25px #ff9d0030;
-}
-
-.nav{
-display:flex;
-align-items:center;
-gap:15px;
-padding:15px;
-margin:7px 0;
-border-radius:16px;
-font-size:17px;
-cursor:pointer;
-color:#eee;
-}
-
-.nav:hover,.nav.active{
-background:linear-gradient(90deg,#ff159566,#8b00ff44);
-box-shadow:0 0 20px #ff159944;
-}
-
-.nav span{
-font-size:23px;
-}
-
-.sidePremium{
-position:absolute;
-left:18px;
-right:18px;
-bottom:25px;
-padding:18px;
-border-radius:20px;
-text-align:center;
-background:linear-gradient(145deg,#ff178b33,#6b00ff33);
-border:1px solid #ff42b777;
-}
-
-.sidePremium h3{
-color:#ffd34d;
-margin-bottom:8px;
-}
-
-.upgrade{
-margin-top:12px;
-border:0;
-border-radius:25px;
-padding:11px 20px;
-color:white;
-font-weight:bold;
-background:linear-gradient(90deg,#ff1688,#9d28ff);
-}
-
-.main{
-margin-left:245px;
-width:calc(100% - 245px);
-padding:25px 28px 80px;
-}
-
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-
-.top h2{
-font-size:18px;
-color:#ddd;
-}
-
-.bell{
-width:45px;
-height:45px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#ff149933;
-border:1px solid #ff4dbb;
-font-size:22px;
-}
-
-.hero{
-position:relative;
-min-height:440px;
-border-radius:28px;
-overflow:hidden;
-border:1px solid #ff299966;
-background:
-radial-gradient(circle at 80% 35%,#ff1a8755,transparent 30%),
-radial-gradient(circle at 25% 70%,#9d00ff44,transparent 30%),
-linear-gradient(120deg,#12000f,#21001e,#090009);
-box-shadow:0 0 50px #ff008833;
-display:flex;
-align-items:center;
-padding:45px;
-}
-
-.roses{
-position:absolute;
-inset:0;
-opacity:.25;
-font-size:70px;
-line-height:1.7;
-letter-spacing:20px;
-pointer-events:none;
-}
-
-.heroText{
-position:relative;
-z-index:2;
-max-width:55%;
-}
-
-.script{
-font-size:38px;
-font-style:italic;
-color:#ff69c7;
-margin-bottom:2px;
-}
-
-.heroTitle{
-font-size:56px;
-font-weight:900;
-background:linear-gradient(90deg,#fff,#ffb3e7,#fff);
--webkit-background-clip:text;
-color:transparent;
-margin-bottom:18px;
-}
-
-.heroSub{
-font-size:20px;
-line-height:1.5;
-color:#ffd8ee;
-}
-
-.doll{
-position:absolute;
-right:4%;
-bottom:-8px;
-width:390px;
-height:390px;
-z-index:2;
-}
-
-.doll .hair{
-position:absolute;
-width:250px;
-height:285px;
-left:70px;
-top:45px;
-background:linear-gradient(145deg,#3a130e,#9a351e,#32100d);
-border-radius:52% 48% 45% 45%;
-box-shadow:inset -20px -15px 30px #210807;
-}
-
-.doll .face{
-position:absolute;
-width:190px;
-height:205px;
-left:100px;
-top:92px;
-background:linear-gradient(145deg,#ffe0c2,#ffc3a2);
-border-radius:48% 48% 45% 45%;
-box-shadow:inset -12px -5px 15px #dc8c78;
-}
-
-.eye{
-position:absolute;
-width:38px;
-height:48px;
-background:#24100f;
-border-radius:50%;
-top:155px;
-z-index:4;
-box-shadow:inset 8px 5px 0 #fff;
-}
-
-.eye.left{left:125px}
-.eye.right{left:225px}
-
-.mouth{
-position:absolute;
-left:175px;
-top:230px;
-width:38px;
-height:18px;
-border-bottom:4px solid #9e3151;
-border-radius:50%;
-z-index:5;
-}
-
-.rose{
-position:absolute;
-right:70px;
-top:70px;
-font-size:55px;
-z-index:5;
-}
-
-.body{
-position:absolute;
-width:210px;
-height:135px;
-left:90px;
-top:270px;
-background:linear-gradient(145deg,#ff91c8,#c52a87);
-border-radius:80px 80px 20px 20px;
-}
-
-.cards{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
-margin-top:20px;
-}
-
-.card{
-padding:25px;
-border-radius:24px;
-border:1px solid #ff3ca977;
-background:linear-gradient(145deg,#ff187722,#8b00ff22);
-box-shadow:0 10px 30px #0008;
-}
-
-.card h2{
-font-size:25px;
-margin-bottom:10px;
-}
-
-.card p{
-color:#d8c9d7;
-line-height:1.5;
-margin-bottom:18px;
-}
-
-.cardIcon{
-float:right;
-font-size:70px;
-margin-top:-10px;
-}
-
-.btn{
-border:0;
-border-radius:25px;
-padding:13px 22px;
-color:white;
-font-weight:bold;
-font-size:16px;
-background:linear-gradient(90deg,#ff1688,#8c25ff);
-box-shadow:0 0 20px #ff168855;
-}
-
-.section{
-margin-top:25px;
-}
-
-.sectionHead{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:12px;
-}
-
-.sectionHead h2{
-font-size:21px;
-}
-
-.view{
-color:#aaa;
-border:1px solid #ffffff22;
-padding:8px 15px;
-border-radius:20px;
-}
-
-.styles{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:12px;
-}
-
-.style{
-height:145px;
-border-radius:18px;
-overflow:hidden;
-position:relative;
-border:1px solid #ffffff22;
-background:linear-gradient(145deg,#30152d,#130713);
-display:flex;
-align-items:flex-end;
-justify-content:center;
-padding-bottom:12px;
-font-weight:bold;
-}
-
-.style:nth-child(1){background:linear-gradient(145deg,#ff197c,#3d0c32)}
-.style:nth-child(2){background:linear-gradient(145deg,#ffb09d,#55202c)}
-.style:nth-child(3){background:linear-gradient(145deg,#27133b,#d62b81)}
-.style:nth-child(4){background:linear-gradient(145deg,#422018,#ff7035)}
-.style:nth-child(5){background:linear-gradient(145deg,#ddd,#555)}
-
-.styleIcon{
-position:absolute;
-top:15px;
-font-size:58px;
-}
-
-.creations{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px;
-}
-
-.creation{
-height:150px;
-border-radius:18px;
-border:1px solid #ffffff22;
-background:linear-gradient(145deg,#3a172f,#120711);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:65px;
-}
-
-.createNow{
-margin:25px auto;
-max-width:620px;
-padding:18px;
-border-radius:30px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-background:linear-gradient(90deg,#ff008855,#7c00ff66);
-border:1px solid #ff42c5;
-box-shadow:0 0 30px #ff009955;
-}
-
-.createNow h2{
-font-size:21px;
-}
-
-.arrow{
-width:50px;
-height:50px;
-border-radius:50%;
-border:0;
-font-size:25px;
-color:white;
-background:#762cff;
-}
-
-.mobileNav{
-display:none;
-}
-
-@media(max-width:800px){
-
-.sidebar{
-display:none;
-}
-
-.main{
-margin-left:0;
-width:100%;
-padding:15px 12px 100px;
-}
-
-.hero{
-min-height:520px;
-padding:25px 20px;
-align-items:flex-start;
-}
-
-.heroText{
-max-width:100%;
-text-align:center;
-}
-
-.script{
-font-size:30px;
-}
-
-.heroTitle{
-font-size:42px;
-}
-
-.heroSub{
-font-size:17px;
-}
-
-.doll{
-width:310px;
-height:310px;
-right:50%;
-transform:translateX(50%);
-bottom:-10px;
-}
-
-.cards{
-grid-template-columns:1fr;
-}
-
-.styles{
-grid-template-columns:repeat(2,1fr);
-}
-
-.creations{
-grid-template-columns:repeat(2,1fr);
-}
-
-.mobileNav{
-display:flex;
-position:fixed;
-bottom:10px;
-left:10px;
-right:10px;
-height:70px;
-border-radius:30px;
-background:#130812ee;
-border:1px solid #ff3eaf88;
-backdrop-filter:blur(20px);
-z-index:50;
-align-items:center;
-justify-content:space-around;
-}
-
-.mobileNav div{
-text-align:center;
-font-size:12px;
-color:#ddd;
-}
-
-.mobileNav span{
-display:block;
-font-size:24px;
-}
-
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartoon Malar AI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #09030e;
+            color: #ffffff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 36px;
+            color: #ff69b4;
+            font-style: italic;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #d8b4fe;
+            font-size: 14px;
+        }
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .card {
+            background: linear-gradient(135deg, #2b0b3f, #150522);
+            border: 2px solid #ff4da6;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(255, 77, 166, 0.2);
+            text-align: left;
+        }
+        .card h3 {
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .card p {
+            color: #c084fc;
+            font-size: 13px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .btn {
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .result-box {
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+        }
+        .result-box img, .result-box video {
+            width: 100%;
+            border-radius: 10px;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        .loading {
+            color: #facc15;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="app">
+    <div class="header">
+        <h1>Cartoon Malar AI</h1>
+        <p>✨ Convert Your Memories Into Beautiful Cartoons ✨</p>
+    </div>
 
-<aside class="sidebar">
+    <div class="card-container">
+        <!-- Photo to Cartoon Card -->
+        <div class="card">
+            <h3>Photo to Cartoon</h3>
+            <p>Turn your photos into stunning cartoon art effortlessly.</p>
+            <label for="photoInput" class="btn">Get Started ➔</label>
+            <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(event)">
+            
+            <div class="loading" id="photoLoading">🎨 கார்ட்டூனாக மாறிக்கொண்டிருக்கிறது...</div>
+            <div class="result-box" id="photoResult">
+                <img id="outputPhoto" alt="Cartoon Photo">
+            </div>
+        </div>
 
-<div class="brand">🌸 Cartoon Malar AI</div>
+        <!-- Video to Cartoon Card -->
+        <div class="card">
+            <h3>Video to Cartoon</h3>
+            <p>Turn your videos into amazing cartoon animation videos.</p>
+            <label for="videoInput" class="btn">Get Started ➔</label>
+            <input type="file" id="videoInput" accept="video/*" onchange="handleVideo(event)">
+            
+            <div class="loading" id="videoLoading">🎬 அனிமேஷன் வீடியோ ரெடியாகுது மச்சி...</div>
+            <div class="result-box" id="videoResult">
+                <video id="outputVideo" controls></video>
+            </div>
+        </div>
+    </div>
 
-<div class="premium">👑 Premium</div>
+    <script>
+        function handlePhoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-<div class="nav active"><span>⌂</span> Home</div>
-<div class="nav" onclick="photo()"><span>▧</span> Photo to Cartoon</div>
-<div class="nav" onclick="video()"><span>▣</span> Video to Cartoon</div>
-<div class="nav"><span>🎨</span> Styles</div>
-<div class="nav"><span>▧</span> My Creations</div>
-<div class="nav"><span>♢</span> Premium</div>
-<div class="nav"><span>♙</span> Profile</div>
-<div class="nav"><span>⚙</span> Settings</div>
+            const loading = document.getElementById('photoLoading');
+            const resultBox = document.getElementById('photoResult');
+            const outputPhoto = document.getElementById('outputPhoto');
 
-<div class="sidePremium">
-<h3>👑 Go Premium</h3>
-<p>Unlock all styles,<br>remove ads & more!</p>
-<button class="upgrade">Upgrade Now</button>
-</div>
+            loading.style.display = "block";
+            resultBox.style.display = "none";
 
-</aside>
+            setTimeout(() => {
+                loading.style.display = "none";
+                outputPhoto.src = URL.createObjectURL(file);
+                resultBox.style.display = "block";
+            }, 2500);
+        }
 
-<main class="main">
+        function handleVideo(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-<div class="top">
-<h2>Welcome to Cartoon Malar AI 🌸</h2>
-<div class="bell">🔔</div>
-</div>
+            const loading = document.getElementById('videoLoading');
+            const resultBox = document.getElementById('videoResult');
+            const outputVideo = document.getElementById('outputVideo');
 
-<section class="hero">
+            loading.style.display = "block";
+            resultBox.style.display = "none";
 
-<div class="roses">
-🌹　🌹　　　🌹<br>
-　🌹　　🌹　　🌹<br>
-🌹　　　🌹　　　🌹
-</div>
-
-<div class="heroText">
-<div class="script">Cartoon♡</div>
-<div class="heroTitle">Malar AI</div>
-
-<p class="heroSub">
-✨ Convert Your Memories<br>
-Into Beautiful Cartoons ✨
-</p>
-</div>
-
-<div class="doll">
-
-<div class="hair"></div>
-<div class="face"></div>
-
-<div class="eye left"></div>
-<div class="eye right"></div>
-
-<div class="mouth"></div>
-
-<div class="rose">🌹</div>
-
-<div class="body"></div>
-
-</div>
-
-</section>
-
-<section class="cards">
-
-<div class="card">
-<div class="cardIcon">🖼️</div>
-<h2>Photo to<br>Cartoon</h2>
-<p>Turn your photos into stunning cartoon art</p>
-<button class="btn" onclick="photo()">Get Started →</button>
-</div>
-
-<div class="card">
-<div class="cardIcon">🎬</div>
-<h2>Video to<br>Cartoon</h2>
-<p>Turn your videos into amazing cartoon videos</p>
-<button class="btn" onclick="video()">Get Started →</button>
-</div>
-
-</section>
-
-<section class="section">
-
-<div class="sectionHead">
-<h2>Popular Styles ✨</h2>
-<div class="view">View All</div>
-</div>
-
-<div class="styles">
-
-<div class="style">
-<div class="styleIcon">👧🏻</div>
-3D Cartoon
-</div>
-
-<div class="style">
-<div class="styleIcon">👩🏻</div>
-Soft 3D
-</div>
-
-<div class="style">
-<div class="styleIcon">👩🏻‍🎤</div>
-Anime
-</div>
-
-<div class="style">
-<div class="styleIcon">👩🏽</div>
-Comic
-</div>
-
-<div class="style">
-<div class="styleIcon">👩🏼</div>
-Sketch
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<div class="sectionHead">
-<h2>Recent Creations</h2>
-<div class="view">See All</div>
-</div>
-
-<div class="creations">
-
-<div class="creation">👦🏻</div>
-<div class="creation">👧🏻</div>
-<div class="creation">👩🏻‍❤️‍👨🏻</div>
-<div class="creation">🧑🏻</div>
-
-</div>
-
-</section>
-
-<div class="createNow">
-
-<div>
-<h2>✨ Create Cartoon Now</h2>
-<p>Choose Photo or Video to Get Started</p>
-</div>
-
-<button class="arrow" onclick="photo()">→</button>
-
-</div>
-
-</main>
-
-</div>
-
-<nav class="mobileNav">
-
-<div onclick="location.reload()">
-<span>⌂</span>Home
-</div>
-
-<div onclick="photo()">
-<span>🎨</span>Cartoon
-</div>
-
-<div onclick="photo()" style="font-size:30px">
-<span>＋</span>
-</div>
-
-<div>
-<span>▧</span>Creations
-</div>
-
-<div>
-<span>♙</span>Profile
-</div>
-
-</nav>
-
-<script>
-
-function photo(){
-alert("📸 Photo to Cartoon\n\nஅடுத்த கட்டத்தில் இங்கே Photo Upload + AI Cartoon உருவாக்கும் வசதி இணைக்கப்படும்.");
-}
-
-function video(){
-alert("🎥 Video to Cartoon\n\nஅடுத்த கட்டத்தில் இங்கே Video Upload + AI Cartoon உருவாக்கும் வசதி இணைக்கப்படும்.");
-}
-
-</script>
+            setTimeout(() => {
+                loading.style.display = "none";
+                outputVideo.src = URL.createObjectURL(file);
+                resultBox.style.display = "block";
+            }, 3000);
+        }
+    </script>
 
 </body>
-  </html>
+</html>
