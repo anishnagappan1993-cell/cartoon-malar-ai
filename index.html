@@ -26,19 +26,23 @@
             max-width: 420px;
             position: relative;
         }
-        /* Top Header Banner */
         .banner {
             background: linear-gradient(135deg, #2b0b3f, #150522);
             border: 2px solid #ff4da6;
             border-radius: 20px;
             padding: 20px;
             position: relative;
-            overflow: hidden;
             box-shadow: 0 10px 25px rgba(255, 77, 166, 0.3);
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .banner-text {
+            width: 60%;
         }
         .banner h1 {
-            font-size: 28px;
+            font-size: 24px;
             color: #ff69b4;
             font-style: italic;
             text-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
@@ -46,8 +50,19 @@
         }
         .banner p {
             color: #d8b4fe;
-            font-size: 12px;
+            font-size: 11px;
             margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        .banner-img {
+            width: 38%;
+            text-align: right;
+        }
+        .banner-img img {
+            width: 100%;
+            max-height: 130px;
+            object-fit: contain;
+            border-radius: 10px;
         }
         .cards-row {
             display: flex;
@@ -61,12 +76,12 @@
             width: 50%;
         }
         .mini-card h4 {
-            font-size: 13px;
+            font-size: 12px;
             color: #fff;
             margin-bottom: 4px;
         }
         .mini-card p {
-            font-size: 10px;
+            font-size: 9px;
             color: #c084fc;
             margin-bottom: 8px;
         }
@@ -76,12 +91,10 @@
             border: none;
             padding: 5px 10px;
             border-radius: 15px;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: bold;
             cursor: pointer;
         }
-
-        /* Section Titles */
         .section-title {
             display: flex;
             justify-content: space-between;
@@ -94,10 +107,7 @@
         .section-title span {
             font-size: 12px;
             color: #c084fc;
-            cursor: pointer;
         }
-
-        /* Popular Styles Horizontal Scroll */
         .horizontal-scroll {
             display: flex;
             gap: 10px;
@@ -127,8 +137,6 @@
             font-size: 11px;
             color: #fff;
         }
-
-        /* Recent Creations Grid */
         .creations-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -146,8 +154,6 @@
             height: 100%;
             object-fit: cover;
         }
-
-        /* Bottom Floating Bar */
         .create-banner {
             background: linear-gradient(90deg, #581c87, #831843);
             border: 1px solid #ec4899;
@@ -160,8 +166,6 @@
             color: #fff;
             box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
         }
-
-        /* Bottom Navigation Bar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -201,70 +205,67 @@
 <body>
 
     <div class="main-container">
-        <!-- Top Banner -->
+        <!-- Top Banner with Cartoon Character -->
         <div class="banner">
-            <h1>Cartoon Malar AI</h1>
-            <p>✨ Convert Your Memories Into Beautiful Cartoons ✨</p>
-            
-            <div class="cards-row">
-                <div class="mini-card">
-                    <h4>Photo to Cartoon</h4>
-                    <p>Stunning art</p>
-                    <button class="action-btn">Get Started ➔</button>
-                </div>
-                <div class="mini-card">
-                    <h4>Video to Cartoon</h4>
-                    <p>Amazing videos</p>
-                    <button class="action-btn">Get Started ➔</button>
-                </div>
+            <div class="banner-text">
+                <h1>Cartoon Malar AI</h1>
+                <p>✨ Convert Memories Into Beautiful Cartoons ✨</p>
+            </div>
+            <div class="banner-img">
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=300" alt="Cartoon Character">
             </div>
         </div>
 
-        <!-- Popular Styles -->
+        <div class="cards-row">
+            <div class="mini-card">
+                <h4>Photo to Cartoon</h4>
+                <p>Stunning art</p>
+                <button class="action-btn">Get Started ➔</button>
+            </div>
+            <div class="mini-card">
+                <h4>Video to Cartoon</h4>
+                <p>Amazing videos</p>
+                <button class="action-btn">Get Started ➔</button>
+            </div>
+        </div>
+
         <div class="section-title">
             Popular Styles <span>View All</span>
         </div>
         <div class="horizontal-scroll">
             <div class="style-item">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Style">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="3D Cartoon">
                 <p>3D Cartoon</p>
             </div>
             <div class="style-item">
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100" alt="Style">
+                <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" alt="Soft 3D">
                 <p>Soft 3D</p>
             </div>
             <div class="style-item">
-                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" alt="Style">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Anime">
                 <p>Anime</p>
             </div>
             <div class="style-item">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Style">
+                <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100" alt="Comic">
                 <p>Comic</p>
-            </div>
-            <div class="style-item">
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="Style">
-                <p>Sketch</p>
             </div>
         </div>
 
-        <!-- Recent Creations -->
         <div class="section-title">
             Recent Creations <span>See All</span>
         </div>
         <div class="creations-grid">
-            <div class="creation-card"><img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150" alt="Creation"></div>
-            <div class="creation-card"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Creation"></div>
-            <div class="creation-card"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Creation"></div>
-            <div class="creation-card"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150" alt="Creation"></div>
+            <div class="creation-card"><img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" alt="Creation"></div>
+            <div class="creation-card"><img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150" alt="Creation"></div>
+            <div class="creation-card"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" alt="Creation"></div>
+            <div class="creation-card"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150" alt="Creation"></div>
         </div>
 
-        <!-- Bottom Action Banner -->
         <div class="create-banner">
             ✨ Create Cartoon Now <br><span style="font-size: 10px; color: #d8b4fe; font-weight: normal;">Choose Photo or Video to Get Started</span>
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
     <div class="bottom-nav">
         <a href="#" class="nav-item active">
             <div>🏠</div>
