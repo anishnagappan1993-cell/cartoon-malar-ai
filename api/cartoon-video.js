@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { videoUrl, style } = req.body;
+    const { videoUrl, style } = req.body || {};
 
     if (!videoUrl) {
       return res.status(400).json({
@@ -19,55 +19,44 @@ export default async function handler(req, res) {
     const selectedStyle = style || "3D Cartoon";
 
     const prompt = `
-Transform this reference video into a high-quality
-${selectedStyle} animated cartoon.
+Transform this reference video into a high-quality animated cartoon video.
 
-Preserve the person's identity, facial features,
-hair, clothing, body movement, camera movement,
-scene composition and timing as much as possible.
+Style: ${selectedStyle}
 
-Create consistent characters and smooth animation
-throughout the entire video.
+Keep the same person, facial features, hair, clothing,
+body movement, camera movement, scene composition and timing
+as closely as possible.
 
-Premium cinematic 3D cartoon appearance.
-Keep the original action and story.
+Create a consistent cartoon character throughout the entire video.
+Make the animation smooth, detailed and visually attractive.
 
-Preserve the original audio, voice, dialogue
-and music whenever supported.
+High quality, clean character design, smooth motion,
+cinematic lighting, detailed background.
 `;
 
     const result = await fal.subscribe(
-      "fal-ai/ltx-2.3-22b/reference-video-to-video",
+      "fal-ai/ltx-2.3-quality/reference-video-to-video",
       {
         input: {
-          prompt,
-          video_url: videoUrl,
-          match_video_length: true,
-          match_input_fps: true,
-          use_multiscale: true
-        }
+          prompt: prompt,
+          video_url: videoUrl
+        },
+        logs: true
       }
     );
 
-    const outputVideo = result?.data?.video?.url;
-
-    if (!outputVideo) {
-      return res.status(500).json({
-        error: "AI did not return a video"
-      });
-    }
-
     return res.status(200).json({
       success: true,
-      videoUrl: outputVideo,
-      style: selectedStyle
+      video: result.data?.video || null,
+      requestId: result.requestId
     });
 
   } catch (error) {
     console.error(error);
 
     return res.status(500).json({
-      error: error.message || "AI processing failed"
+      success: false,
+      error: error?.message || "Cartoon video generation failed"
     });
   }
-  }
+      }
